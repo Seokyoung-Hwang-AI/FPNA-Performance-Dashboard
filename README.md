@@ -80,7 +80,7 @@ High-level KPI summary for financial performance tracking.
 
 ## 📸 Dashboard Preview
 
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](05_screenshots/dashboard.png)
 
 ---
 
