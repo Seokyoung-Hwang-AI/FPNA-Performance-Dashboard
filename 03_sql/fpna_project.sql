@@ -135,7 +135,7 @@ SELECT
 FROM v_monthly_actual;
 
 -- =========================================================
--- 10. POWER BI DATA MART
+-- 10. FPNA DATA MART
 -- =========================================================
 
 CREATE OR REPLACE VIEW v_fpna_mart AS
@@ -158,14 +158,7 @@ LEFT JOIN v_monthly_budget b
 ORDER BY v.month;
 
 -- =========================================================
--- 11. POWER BI EXPORT QUERY
--- =========================================================
-
-SELECT *
-FROM v_fpna_mart;
-
--- =========================================================
--- 12. CUSTOMER ANALYSIS
+-- 11. CUSTOMER ANALYSIS
 -- =========================================================
 
 CREATE OR REPLACE VIEW v_customer_analysis AS
@@ -180,7 +173,7 @@ FROM fact_transactions
 GROUP BY customer_id, region, plan;
 
 -- =========================================================
--- 13. PLAN PERFORMANCE
+-- 12. PLAN PERFORMANCE
 -- =========================================================
 
 CREATE OR REPLACE VIEW v_plan_performance AS
@@ -194,7 +187,7 @@ FROM fact_transactions
 GROUP BY plan;
 
 -- =========================================================
--- 14. REGION PERFORMANCE
+-- 13. REGION PERFORMANCE
 -- =========================================================
 
 CREATE OR REPLACE VIEW v_region_performance AS
