@@ -2,13 +2,13 @@
 -- 1. CREATE DATABASE
 -- =========================================================
 
-CREATE DATABASE fpna_project;
+CREATE DATABASE IF NOT EXISTS fpna_project;
 
 -- =========================================================
 -- 2. FACT TABLE: fact_transactions
 -- =========================================================
 
-CREATE TABLE fact_transactions (
+CREATE TABLE IF NOT EXISTS fact_transactions (
     date DATE,
     customer_id INT,
     region VARCHAR(50),
@@ -22,7 +22,7 @@ CREATE TABLE fact_transactions (
 -- 3. FACT TABLE: fact_budget
 -- =========================================================
 
-CREATE TABLE fact_budget (
+CREATE TABLE IF NOT EXISTS fact_budget (
     month DATE,
     budget_revenue NUMERIC(12,2),
     budget_cost NUMERIC(12,2),
@@ -30,19 +30,19 @@ CREATE TABLE fact_budget (
 );
 
 -- =========================================================
--- 3. DIMENSION TABLES (ADD HERE)
+-- 4. DIMENSION TABLES
 -- =========================================================
 
-CREATE TABLE dim_region AS
+CREATE TABLE IF NOT EXISTS dim_date AS
+SELECT DISTINCT DATE_TRUNC('month', date)::date AS month
+FROM fact_transactions;
+
+CREATE TABLE IF NOT EXISTS dim_region AS
 SELECT DISTINCT region
 FROM fact_transactions;
 
-CREATE TABLE dim_plan AS
+CREATE TABLE IF NOT EXISTS dim_plan AS
 SELECT DISTINCT plan
-FROM fact_transactions;
-
-CREATE TABLE dim_date AS
-SELECT DISTINCT DATE_TRUNC('month', date)::date AS month
 FROM fact_transactions;
 
 -- =========================================================
@@ -135,49 +135,7 @@ SELECT
 FROM v_monthly_actual;
 
 -- =========================================================
--- 10. CUSTOMER ANALYSIS
--- =========================================================
-
-CREATE OR REPLACE VIEW v_customer_analysis AS
-SELECT
-    customer_id,
-    region,
-    plan,
-    SUM(revenue) AS revenue,
-    SUM(cost) AS cost,
-    SUM(profit) AS profit
-FROM fact_transactions
-GROUP BY customer_id, region, plan;
-
--- =========================================================
--- 11. PLAN PERFORMANCE
--- =========================================================
-
-CREATE OR REPLACE VIEW v_plan_performance AS
-SELECT
-    plan,
-    SUM(revenue) AS revenue,
-    SUM(cost) AS cost,
-    SUM(profit) AS profit,
-    ROUND(SUM(profit) / NULLIF(SUM(revenue), 0), 4) AS margin_pct
-FROM fact_transactions
-GROUP BY plan;
-
--- =========================================================
--- 12. REGION PERFORMANCE
--- =========================================================
-
-CREATE OR REPLACE VIEW v_region_performance AS
-SELECT
-    region,
-    SUM(revenue) AS revenue,
-    SUM(cost) AS cost,
-    SUM(profit) AS profit
-FROM fact_transactions
-GROUP BY region;
-
--- =========================================================
--- 13. POWER BI FINAL DATA MART
+-- 10. POWER BI DATA MART
 -- =========================================================
 
 CREATE OR REPLACE VIEW v_fpna_mart AS
@@ -200,8 +158,50 @@ LEFT JOIN v_monthly_budget b
 ORDER BY v.month;
 
 -- =========================================================
--- 14. POWER BI EXPORT QUERY
+-- 11. POWER BI EXPORT QUERY
 -- =========================================================
 
 SELECT *
 FROM v_fpna_mart;
+
+-- =========================================================
+-- 12. CUSTOMER ANALYSIS
+-- =========================================================
+
+CREATE OR REPLACE VIEW v_customer_analysis AS
+SELECT
+    customer_id,
+    region,
+    plan,
+    SUM(revenue) AS revenue,
+    SUM(cost) AS cost,
+    SUM(profit) AS profit
+FROM fact_transactions
+GROUP BY customer_id, region, plan;
+
+-- =========================================================
+-- 13. PLAN PERFORMANCE
+-- =========================================================
+
+CREATE OR REPLACE VIEW v_plan_performance AS
+SELECT
+    plan,
+    SUM(revenue) AS revenue,
+    SUM(cost) AS cost,
+    SUM(profit) AS profit,
+    ROUND(SUM(profit) / NULLIF(SUM(revenue), 0), 4) AS margin_pct
+FROM fact_transactions
+GROUP BY plan;
+
+-- =========================================================
+-- 14. REGION PERFORMANCE
+-- =========================================================
+
+CREATE OR REPLACE VIEW v_region_performance AS
+SELECT
+    region,
+    SUM(revenue) AS revenue,
+    SUM(cost) AS cost,
+    SUM(profit) AS profit
+FROM fact_transactions
+GROUP BY region;
