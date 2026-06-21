@@ -1,6 +1,6 @@
 # FP&A Performance Dashboard
 
-- A financial planning & analysis (FP&A) dashboard built using SQL and Power BI to analyze revenue performance, budget vs actual variance, profitability, and customer growth for a simulated B2B SaaS business.
+> A financial planning & analysis (FP&A) dashboard built using SQL and Power BI to analyze revenue performance, budget vs actual variance, profitability, and customer growth for a simulated B2B SaaS business.
 
 ---
 
