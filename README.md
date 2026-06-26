@@ -20,10 +20,10 @@ Key objectives:
 
 ## 🛠️ Tech Stack
 
-- Python (Synthetic data generation)
-- SQL (Aggregation, KPI logic, time-series analysis)
-- PostgreSQL (Data modeling & SQL transformations)
-- Power BI (Dashboard development & visualization)
+- **Python**: Synthetic data generation
+- **SQL**: Aggregation, KPI logic, time-series analysis
+- **PostgreSQL**: Data modeling & SQL transformations
+- **Power BI**: Dashboard development & visualization
 
 ---
 
