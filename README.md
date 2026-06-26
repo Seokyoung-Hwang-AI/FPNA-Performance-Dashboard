@@ -4,7 +4,7 @@
 
 ---
 
-## 🎯 Project Objective
+## 📖 Project Overview
 
 This project simulates a real-world FP&A reporting system to support executive-level financial decision-making.
 
@@ -24,7 +24,6 @@ Key objectives:
 - SQL (Aggregation, KPI logic, time-series analysis)
 - PostgreSQL (Data modeling & SQL transformations)
 - Power BI (Dashboard development & visualization)
-
 
 ---
 
@@ -94,12 +93,12 @@ High-level KPI summary for financial performance tracking.
 
 ---
 
-## 🧠 Key Insights
+## 💡 Key Insights
 
-- Revenue peaked at $1.40M during the observed period
-- Revenue was -$567K below budget expectations
-- Profit margin remained stable at ~52%
-- Customer growth showed consistent upward trend with periodic fluctuations
+- Revenue peaked at **$1.40M** during the observed period
+- Revenue was **-$567K** below budget expectations
+- Profit margin remained stable at **~52%**
+- Customer growth averaged **3.61%** despite periodic fluctuations
 
 ---
 
